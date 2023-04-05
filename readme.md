@@ -1,4 +1,4 @@
-# RAFT - Reusable Automation Framework For Testing
+# Python Automation Hybrid Framework For Testing
 
 ### Initial Setup:
 - Install and configure [Python3](https://www.python.org/downloads/)
