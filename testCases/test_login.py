@@ -1,21 +1,25 @@
 import pytest
 from selenium import webdriver
 from pageObjects.LoginPage import LoginPage
+from utilities.readProperties import ReadConfig
 
 class Test_001_Login:
-    baseURL ="https://admin-demo.nopcommerce.com/"
-    username = "admin@yourstore.com"
-    password = "admin"
+    baseURL =ReadConfig.getApplicationURL()
+    username = ReadConfig.getUsername()
+    password = ReadConfig.getPassword()
 
     def test_homePageTitle(self, setup):
         self.driver = setup
         self.driver.get(self.baseURL)
         act_title = self.driver.title
-        self.driver.close()
+        
 
         if act_title == "Your store. Login":
+            self.driver.close()
             assert True 
         else:
+            self.driver.save_screenshot('.\\Screenshots\\'  + 'test_homePageTitle.png')
+            self.driver.close()
             assert False
     
     def test_login(self, setup):
@@ -26,10 +30,14 @@ class Test_001_Login:
         self.lp.setPassword(self.password)
         self.lp.clickLogin()
         act_title = self.driver.title
-        self.driver.close()
+        
 
-        if act_title == "Customers / nopCommerce administration":
+        if act_title == "Dashboard / nopCommerce administration":
             assert True
+            self.driver.close()
         else: 
+            self.driver.save_screenshot('.\\Screenshots\\'  + 'test_Login.png')
+            self.driver.close()
             assert False
+
 
